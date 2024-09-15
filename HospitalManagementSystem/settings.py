@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'HospitalApp'
 ]
 
 MIDDLEWARE = [
@@ -49,12 +50,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 ROOT_URLCONF = 'HospitalManagementSystem.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'HospitalApp/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -68,6 +73,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'HospitalManagementSystem.wsgi.application'
 
 
@@ -80,6 +86,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+LOGIN_URL = 'doctor_login'
+LOGIN_REDIRECT_URL = 'doctor_dashboard'
+LOGOUT_REDIRECT_URL = 'login_view'
 
 
 # Password validation

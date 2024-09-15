@@ -2,9 +2,196 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Homepage</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .jumbotron {
+            background: url('https://i.imgur.com/2L6hR6L.png') no-repeat center center;
+            background-size: cover;
+            color: white;
+            height: 400px;
+        }
+        .jumbotron h1 {
+            font-size: 4em;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Evergreen General Hospital</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#doctors">Doctors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{}">Appointment</a>
+                </li>
+                {% if user.is_authenticated %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout_view' %}">Logout</a>
+    </li>
+{% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                {% if user.is_authenticated %}
+                {% else %}
+                   <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="signupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sign Up
+    </a>
+    <div class="dropdown-menu" aria-labelledby="signupDropdown">
+        <a class="dropdown-item" href="{% url 'patient_signup' %}">As Patient</a>
+        <a class="dropdown-item" href="{% url 'doctor_signup' %}">As Doctor</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Login
+    </a>
+    <div class="dropdown-menu" aria-labelledby="loginDropdown">
+        <a class="dropdown-item" href="{% url 'patient_login' %}">As Patient</a>
+        <a class="dropdown-item" href="{% url 'doctor_login' %}">As Doctor</a>
+    </div>
+</li>
+
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to Our Hospital</h1>
+    <p class="lead">Your health is our priority</p>
+    <a href="{% url 'book_appointment_or_signup' %}" class="btn btn-primary btn-lg">Book an Appointment</a>
+</div>
+    
+    <div class="container text-center">
+        <h1>Welcome to Evergreen General Hospital</h1>
+    </div>
+    
+    <div id="services" class="container text-center mt-5">
+        <h2>Our Services</h2>
+        <p>We offer a wide range of medical services to meet your health needs.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://i.imgur.com/uCgUqOe.png" class="card-img-top" alt="Service 1">
+                    <div class="card-body">
+                        <h5 class="card-title">General Medicine</h5>
+                        <p class="card-text">Comprehensive medical care for all ages.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://i.imgur.com/PBMqq88.png" class="card-img-top" alt="Service 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Pediatrics</h5>
+                        <p class="card-text">Specialized care for infants, children, and adolescents.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://i.imgur.com/l7IdxzJ.png" class="card-img-top" alt="Service 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Cardiology</h5>
+                        <p class="card-text">Advanced heart care and treatments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="doctors" class="container text-center mt-5">
+        <h2>Meet Our Doctors</h2>
+        <p>Our experienced team of doctors is here to provide you with the best care possible.</p>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://i.imgur.com/PVfC9Sg.jpg" class="card-img-top" alt="Doctor 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Dr. John Doe</h5>
+                        <p class="card-text">General Medicine</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://i.imgur.com/pnDh7c9.jpg" class="card-img-top" alt="Doctor 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Dr. Jane Smith</h5>
+                        <p class="card-text">Pediatrics</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://i.imgur.com/EorQ3XJ.png" class="card-img-top" alt="Doctor 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Dr. Rasheed Singh</h5>
+                        <p class="card-text">Cardiology</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://i.imgur.com/KGkbw80.jpg" class="card-img-top" alt="Doctor 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Dr. Emily Davis</h5>
+                        <p class="card-text">Orthopedics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contact" class="container text-center mt-5">
+        <h2>Contact Us</h2>
+        <p>Feel free to reach out to us with any questions or concerns.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Address</h5>
+                <p>#1 Holy Angel Avenue, Sto. Rosario 2009 Angeles City, Philippines</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Phone</h5>
+                <p>(045) 981 9317</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Email</h5>
+                <p>evgenhsp@gmail.com</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer mt-5">
+        <p>&copy; 2024 EverGreen General Hospital. All Rights Reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

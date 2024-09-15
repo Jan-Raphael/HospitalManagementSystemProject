@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
+    <header>
+        <h1>Patient Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome, {{ user.patientaccount.user.username }}!</h2>
+        <p>Phone number: {{ user.patientaccount.phone_number }}</p>
+        <p>Address: {{ user.patientaccount.address }}</p>
+        
+        <!-- Add more content or functionality for patients here -->
+    </main>
+    <footer>
+        <p>&copy; 2024 Hospital Management System</p>
+    </footer>
 </body>
 </html>

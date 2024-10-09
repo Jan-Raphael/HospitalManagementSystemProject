@@ -12,9 +12,13 @@ urlpatterns = [
     path('login/', views.login_view, name='login_view'),
     path('doctor_dashboard/', views.doctor_dashboard, name='doctor_dashboard'),
     path('patient_dashboard/', views.patient_dashboard, name='patient_dashboard'),
-    path('logout/', views.logout_view, name='logout_view'),
+    path('doctor/logout/', views.doctor_logout, name='doctor_logout'),
     path('login/patient/', views.patient_login, name='patient_login'),
     path('login/doctor/', views.doctor_login, name='doctor_login'),
-path('book-appointment/', views.book_appointment_or_signup, name='book_appointment_or_signup'),
-path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('patient/schedule-appointment/', views.schedule_appointment, name='schedule_appointment'),
+    path('patient/view-appointments/', views.view_appointments, name='view_appointments'),
+    path('doctor/view-appointments/', views.doctor_view_appointments, name='doctor_view_appointments'),
+    path('patient/verify-account/', views.verify_account, name='verify_account'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+path('patient/upload-medical-records/', views.upload_medical_records, name='upload_medical_records'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Account</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Verify Your Account</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Verification</button>
+</form>
+        <p>Please confirm that your information is correct before verifying your account.</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Verify Account</button>
+        </form>
+    </div>
+</body>
+</html>

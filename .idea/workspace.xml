@@ -9,19 +9,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalApp/static/css/home_css.css" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/static/css/home_css.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/templates/AccountView/doctor_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/AccountView/doctor_login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/templates/AccountView/doctor_signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/AccountView/doctor_signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/AccountView/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/AccountView/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/templates/AccountView/patient_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/AccountView/patient_login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/templates/AccountView/patient_signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/AccountView/patient_signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/AccountView/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/AccountView/signup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/doctor_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/doctor_dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/patient_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/patient_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/UserView/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/UserView/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalManagementSystem/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalManagementSystem/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalManagementSystem/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalManagementSystem/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HospitalApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,12 +45,12 @@
     &quot;assignee&quot;: &quot;Jan-Raphael&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Jan-Raphael/HospitalManagementSystem.git&quot;,
-    &quot;accountId&quot;: &quot;10765694-2e10-456b-b7b7-226332b49659&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Jan-Raphael/HospitalManagementSystem_update2.git",
+    "accountId": "10765694-2e10-456b-b7b7-226332b49659"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -64,23 +60,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "F:/Coding/PyCharm 2024.1.4/Project/HospitalManagementSystem",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Coding/PyCharm 2024.1.4/Project/HospitalManagementSystem&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Coding\PyCharm 2024.1.4\Project\HospitalManagementSystem\HospitalApp\static" />
@@ -119,8 +115,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PY-242.21829.153" />
-        <option value="bundled-python-sdk-464836ebc622-b74155a9e76b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.21829.153" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23339.19" />
+        <option value="bundled-python-sdk-0029f7779945-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23339.19" />
       </set>
     </attachedChunks>
   </component>
@@ -134,6 +130,7 @@
       <updated>1726234326203</updated>
       <workItem from="1726234333140" duration="15492000" />
       <workItem from="1726375673093" duration="301000" />
+      <workItem from="1728462613160" duration="1930000" />
     </task>
     <servers />
   </component>

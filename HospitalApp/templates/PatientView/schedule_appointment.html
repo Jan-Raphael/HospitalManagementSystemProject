@@ -15,31 +15,21 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'doctor_dashboard' %}">Dashboard</a>
+                    <a class="nav-link" href="{% url 'patient_dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'doctor_logout' %}">Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'doctor_view_appointments' %}">Appointment</a>
                 </li>
             </ul>
         </div>
     </nav>
     
-    <div class="container mt-5">
-        <h2>Welcome, Dr. {{ doctor_profile.user.username }}</h2>
-        <p>Your specialty: {{ doctor_profile.specialty }}</p>
-        <p>Your contact information: {{ doctor_profile.contact_info }}</p>
-        
-        <!-- Add more sections as needed -->
-        
-        <div class="mt-4">
-            <h3>Manage Appointments</h3>
-            <p>Here you can manage your appointments, view patient records, and more.</p>
-            <!-- Add links or forms for managing appointments -->
-        </div>
-    </div>
+    <h2>Schedule an Appointment</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Schedule Appointment</button>
+</form>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

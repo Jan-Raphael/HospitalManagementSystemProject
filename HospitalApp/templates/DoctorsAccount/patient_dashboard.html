@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -12,19 +12,55 @@
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'doctor_logout' %}">Logout</a></li>
+                <li><a href="{% url 'schedule_appointment' %}">Book an Appointment</a></li>
+                <li><a href="{% url 'view_appointments' %}">View your Appointments</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <h2>Welcome, {{ user.patientaccount.user.username }}!</h2>
-        <p>Phone number: {{ user.patientaccount.phone_number }}</p>
-        <p>Address: {{ user.patientaccount.address }}</p>
-        
-        <!-- Add more content or functionality for patients here -->
+        <h2>Welcome, {{ user.username }}</h2>
+        <p>Verification Status: {% if user.patientaccount.verification_status %}Verified{% else %}Not Verified{% endif %}</p>
+
+        {% if not user.patientaccount.verification_status %}
+            <a href="{% url 'verify_account' %}">Verify Your Account</a>
+        {% else %}
+            <h3>Your Verification Details</h3>
+            <p><strong>Phone Number:</strong> {{ user.patientaccount.phone_number }}</p>
+            <p><strong>Address:</strong> {{ user.patientaccount.address }}</p>
+
+            <h4>Uploaded Documents:</h4>
+            <p><strong>Profile Photo:</strong></p>
+            {% if user.patientaccount.profile_photo %}
+                <img src="{{ user.patientaccount.profile_photo.url }}" alt="Profile Photo" style="width: 150px; height: auto;">
+            {% else %}
+                <p>No profile photo uploaded.</p>
+            {% endif %}
+
+             <h4>Uploaded Medical Records:</h4>
+            {% if user.patientaccount.medical_records_photo %}
+                <img src="{{ user.patientaccount.medical_records_photo.url }}" alt="Medical Records Photo" style="width: 150px; height: auto;">
+            {% else %}
+                <p>No Medical Records photo uploaded.</p>
+            {% endif %}
+
+            <h4>Upload Medical Records</h4>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="medical_records">Select Medical Records:</label>
+                    <input type="file" name="medical_records" id="medical_records" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Medical Records</button>
+            </form>
+        {% endif %}
     </main>
     <footer>
         <p>&copy; 2024 Hospital Management System</p>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

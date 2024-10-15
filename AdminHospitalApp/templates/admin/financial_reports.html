@@ -1,0 +1,72 @@
+<!-- AdminHospitalApp/templates/admin/financial_reports.html -->
+
+{% extends 'admin/admin_dashboard.html' %}
+
+{% block content %}
+    <h2>Financial Reports</h2>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Total Income</div>
+                <div class="card-body">
+                    <h5 class="card-title">${{ income_total }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Total Expenses</div>
+                <div class="card-body">
+                    <h5 class="card-title">${{ expense_total }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Net Profit</div>
+                <div class="card-body">
+                    <h5 class="card-title">${{ net_profit }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Integration -->
+    <h3>Financial Overview</h3>
+    <canvas id="financialChart" width="400" height="200"></canvas>
+
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('financialChart').getContext('2d');
+        const financialChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Total Income', 'Total Expenses', 'Net Profit'],
+                datasets: [{
+                    label: 'Amount ($)',
+                    data: [{{ income_total }}, {{ expense_total }}, {{ net_profit }}],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.6)', // Income
+                        'rgba(255, 99, 132, 0.6)', // Expenses
+                        'rgba(54, 162, 235, 0.6)'  // Net Profit
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

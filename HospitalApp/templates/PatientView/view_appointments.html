@@ -3,11 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Dashboard</title>
+    <title>Your Appointments</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .navbar {
+            background-color: #007bff;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .nav-item {
+            color:blue;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">Evergreen General Hospital</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,19 +63,25 @@
             </ul>
         </div>
     </nav>
-    
-    <h2>Your Appointments</h2>
-<ul>
-    {% for appointment in appointments %}
-    <li>
-        {{ appointment.appointment_type }} with {{ appointment.doctor.user.username }} on {{ appointment.appointment_date }}
-        (Status: {{ appointment.status }})
-    </li>
-    {% empty %}
-    <li>No appointments found.</li>
-    {% endfor %}
-</ul>
 
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h2>Your Appointments</h2>
+        
+        <!-- Appointment List -->
+        <ul>
+            {% for appointment in appointments %}
+            <li>
+                <strong>{{ appointment.appointment_type }}</strong> with Dr. {{ appointment.doctor.user.username }} on {{ appointment.appointment_date }} 
+                <br>(Status: {{ appointment.status }})
+            </li>
+            {% empty %}
+            <li>No appointments found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

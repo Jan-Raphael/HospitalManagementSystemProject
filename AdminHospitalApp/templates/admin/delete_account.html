@@ -1,0 +1,13 @@
+<!-- AdminHospitalApp/templates/admin/delete_account.html -->
+
+{% extends 'admin/admin_dashboard.html' %}
+
+{% block content %}
+    <h2>Delete Account: {{ user.username }}</h2>
+    <p>Are you sure you want to delete the account for "<strong>{{ user.username }}</strong>"?</p>
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a href="{% url 'account_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

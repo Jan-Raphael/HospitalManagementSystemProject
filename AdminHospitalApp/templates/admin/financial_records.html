@@ -1,0 +1,44 @@
+
+{% extends 'admin/admin_dashboard.html' %}
+{% load static %}
+{% block content %}
+  <h2>Financial Records</h2>
+  <a href="{% url 'add_financial_record' %}">Add Financial Record</a>
+  <form method="get">
+    {{ form.as_p }}
+    <button type="submit">Filter</button>
+    <a href="{% url 'financial_records' %}">Reset</a>
+  </form>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in records %}
+        <tr>
+          <td>{{ record.transaction_type }}</td>
+          <td>{{ record.amount }}</td>
+          <td>{{ record.description }}</td>
+          <td>{{ record.date }}</td>
+          <td>
+            <a href="{% url 'edit_financial_record' record.pk %}">Edit</a>
+            <a href="{% url 'delete_financial_record' record.pk %}">Delete</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No financial records found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  
+  </table>
+{% endblock %}
+<a href="{% url 'export_financial_records_csv' %}">Export as CSV</a>

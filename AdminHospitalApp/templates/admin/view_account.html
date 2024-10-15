@@ -1,0 +1,51 @@
+<!-- AdminHospitalApp/templates/admin/view_account.html -->
+
+{% extends 'admin/admin_dashboard.html' %}
+
+{% block content %}
+    <h2>View Account: {{ user.username }}</h2>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h4 class="card-title">User Information</h4>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+            <p><strong>Date Joined:</strong> {{ user.date_joined|date:"Y-m-d H:i" }}</p>
+            <p><strong>Role:</strong> 
+                {% if profile_type == 'patient' %}
+                    Patient
+                {% elif profile_type == 'doctor' %}
+                    Doctor
+                {% else %}
+                    Unknown
+                {% endif %}
+            </p>
+
+            {% if profile_type == 'patient' %}
+                <h4 class="mt-4">Patient Profile</h4>
+                <p><strong>Phone Number:</strong> {{ patient_profile.phone_number }}</p>
+                <p><strong>Address:</strong> {{ patient_profile.address }}</p>
+                <p><strong>Verification Status:</strong> {{ patient_profile.verification_status }}</p>
+                {% if patient_profile.profile_photo %}
+                    <p><strong>Profile Photo:</strong></p>
+                    <img src="{{ patient_profile.profile_photo.url }}" alt="Profile Photo" width="150">
+                {% endif %}
+                {% if patient_profile.medical_records_photo %}
+                    <p><strong>Medical Records:</strong></p>
+                    <img src="{{ patient_profile.medical_records_photo.url }}" alt="Medical Records" width="150">
+                {% endif %}
+            {% elif profile_type == 'doctor' %}
+                <h4 class="mt-4">Doctor Profile</h4>
+                <p><strong>Specialty:</strong> {{ doctor_profile.specialty }}</p>
+                <p><strong>Qualification:</strong> {{ doctor_profile.qualification }}</p>
+                <p><strong>Years of Experience:</strong> {{ doctor_profile.years_of_experience }}</p>
+                <p><strong>Is Doctor:</strong> {{ doctor_profile.is_doctor }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <a href="{% url 'edit_account' user.pk %}" class="btn btn-warning mt-3">Edit</a>
+    <a href="{% url 'delete_account' user.pk %}" class="btn btn-danger mt-3">Delete</a>
+    <a href="{% url 'account_list' %}" class="btn btn-secondary mt-3">Back to Accounts</a>
+{% endblock %}

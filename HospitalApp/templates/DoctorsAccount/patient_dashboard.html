@@ -5,6 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: #007bff;
+            padding: 15px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        main {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
+        }
+        img {
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,12 +65,19 @@
             </ul>
         </nav>
     </header>
+
     <main>
         <h2>Welcome, {{ user.username }}</h2>
-        <p>Verification Status: {% if user.patientaccount.verification_status %}Verified{% else %}Not Verified{% endif %}</p>
+        <p><strong>Verification Status:</strong> 
+            {% if user.patientaccount.verification_status %}
+                <span class="text-success">Verified</span>
+            {% else %}
+                <span class="text-danger">Not Verified</span>
+            {% endif %}
+        </p>
 
         {% if not user.patientaccount.verification_status %}
-            <a href="{% url 'verify_account' %}">Verify Your Account</a>
+            <a href="{% url 'verify_account' %}" class="btn btn-warning">Verify Your Account</a>
         {% else %}
             <h3>Your Verification Details</h3>
             <p><strong>Phone Number:</strong> {{ user.patientaccount.phone_number }}</p>
@@ -37,11 +91,11 @@
                 <p>No profile photo uploaded.</p>
             {% endif %}
 
-             <h4>Uploaded Medical Records:</h4>
+            <h4>Uploaded Medical Records:</h4>
             {% if user.patientaccount.medical_records_photo %}
                 <img src="{{ user.patientaccount.medical_records_photo.url }}" alt="Medical Records Photo" style="width: 150px; height: auto;">
             {% else %}
-                <p>No Medical Records photo uploaded.</p>
+                <p>No medical records photo uploaded.</p>
             {% endif %}
 
             <h4>Upload Medical Records</h4>
@@ -49,12 +103,13 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="medical_records">Select Medical Records:</label>
-                    <input type="file" name="medical_records" id="medical_records" required>
+                    <input type="file" name="medical_records" id="medical_records" class="form-control-file" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Upload Medical Records</button>
             </form>
         {% endif %}
     </main>
+
     <footer>
         <p>&copy; 2024 Hospital Management System</p>
     </footer>

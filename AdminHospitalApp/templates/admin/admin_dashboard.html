@@ -1,0 +1,319 @@
+<!-- AdminHospitalApp/templates/admin/admin_dashboard.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System - Admin Dashboard</title>
+    <!-- Embedded CSS -->
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            transition: all 0.3s ease;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar .logo {
+            padding: 20px;
+            text-align: center;
+            background-color: #1a252f;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-bottom: 1px solid #34495e;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .sidebar ul li {
+            border-bottom: 1px solid #34495e;
+        }
+
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .sidebar ul li a i {
+            margin-right: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #34495e;
+        }
+
+        .sidebar ul li a.active {
+            background-color: #16a085;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s;
+        }
+
+        /* Header Styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            color: #2c3e50;
+        }
+
+        .header .logout {
+            text-decoration: none;
+            color: #e74c3c;
+            font-weight: bold;
+            transition: color 0.3s;
+            padding: 8px 16px;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .header .logout:hover {
+            background-color: #c0392b;
+            color: #fff;
+        }
+
+        /* Toggle Button Styling */
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #2c3e50;
+            display: none;
+        }
+
+        /* Reusable Button Styling */
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 10px 0;
+            background-color: #2980b9;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1abc9c;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table.financial-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table.financial-table th, table.financial-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table.financial-table th {
+            background-color: #34495e;
+            color: #ecf0f1;
+        }
+
+        /* Pagination Styling */
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .pagination .page-links a, .pagination .page-links span {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 8px 12px;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .pagination .page-links a:hover {
+            background-color: #bdc3c7;
+        }
+
+        .pagination .page-links .current {
+            background-color: #16a085;
+            color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .sidebar.collapsed {
+                width: 100%;
+            }
+
+            .sidebar .logo {
+                display: none;
+            }
+
+            .sidebar ul {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .sidebar ul li {
+                border: none;
+            }
+
+            .sidebar ul li a {
+                justify-content: center;
+                padding: 10px 15px;
+            }
+
+            .sidebar ul li a i {
+                margin: 0;
+            }
+
+            .main-content {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.2em;
+            }
+
+            .sidebar-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo">
+            HMS
+        </div>
+        <ul>
+            <li>
+                <a href="{% url 'admin_dashboard' %}" class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'inventory_list' %}" class="{% if request.resolver_match.url_name == 'inventory_list' %}active{% endif %}">
+                    <i class="fas fa-boxes"></i> Inventory Management
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'financial_records' %}" class="{% if request.resolver_match.url_name == 'financial_records' %}active{% endif %}">
+                    <i class="fas fa-file-invoice-dollar"></i> Financial Records
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'financial_reports' %}" class="{% if request.resolver_match.url_name == 'financial_reports' %}active{% endif %}">
+                    <i class="fas fa-chart-line"></i> Financial Report
+                </a>
+            </li>
+            <li>
+                
+                <a href="{% url 'account_list' %}" class="{% if request.resolver_match.url_name == 'account_management' %}active{% endif %}">
+                    <i class="fas fa-user-cog"></i> Account Management
+                </a>
+            </li>
+            <!-- Add other links as necessary -->
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Admin Dashboard</h1>
+            <a href="{% url 'home' %}" class="logout">Logout</a>
+        </header>
+
+        <!-- Dynamic Content -->
+        <section>
+            {% block content %}
+            <!-- Child templates will inject content here -->
+            {% endblock %}
+        </section>
+    </div>
+
+    <!-- Include Font Awesome for Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+        integrity="sha512-yH+hNV7Qv8aFFS9E6Az8mtS6iq1qllXdtw16lyJSl5i5gI5oYUJ+hGM0lfSx5ocBZZl2w2u5tkP+1QY1K5jQow=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- JavaScript for Sidebar Toggle -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+</html>

@@ -3,11 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Dashboard</title>
+    <title>Doctor Dashboard - Appointments</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9ecef;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #007bff;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .appointment-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .appointment-item {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #007bff;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .appointment-item:hover {
+            background-color: #e2e6ea;
+        }
+        .appointment-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .appointment-details strong {
+            color: #007bff;
+        }
+        .appointment-date {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .status {
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .status.completed {
+            background-color: #28a745;
+            color: white;
+        }
+        .status.pending {
+            background-color: #ffc107;
+            color: white;
+        }
+        .status.cancelled {
+            background-color: #dc3545;
+            color: white;
+        }
+        .no-appointments {
+            color: #666;
+            text-align: center;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">Evergreen General Hospital</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,19 +99,31 @@
             </ul>
         </div>
     </nav>
-    
-    <h2>Your Appointments</h2>
-<ul>
-    {% for appointment in appointments %}
-    <li>
-        {{ appointment.patient.username }} - {{ appointment.appointment_type }} on {{ appointment.appointment_date }}
-        (Status: {{ appointment.status }})
-    </li>
-    {% empty %}
-    <li>No appointments found.</li>
-    {% endfor %}
-</ul>
 
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h2>Your Appointments</h2>
+        <ul class="appointment-list">
+            {% for appointment in appointments %}
+            <li class="appointment-item">
+                <div class="appointment-details">
+                    <div>
+                        <p><strong>Patient:</strong> {{ appointment.patient.username }}</p>
+                        <p><strong>Appointment Type:</strong> {{ appointment.appointment_type }}</p>
+                    </div>
+                    <div>
+                        <p class="appointment-date">{{ appointment.appointment_date }}</p>
+                        <p class="status {{ appointment.status|lower }}">{{ appointment.status }}</p>
+                    </div>
+                </div>
+            </li>
+            {% empty %}
+            <li class="no-appointments">No appointments found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

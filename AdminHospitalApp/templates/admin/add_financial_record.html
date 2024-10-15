@@ -1,0 +1,13 @@
+<!-- AdminHospitalApp/templates/admin/add_financial_record.html -->
+
+{% extends 'admin/admin_dashboard.html' %}
+
+{% block content %}
+    <h2>Add Financial Record</h2>
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="{% url 'financial_records' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'admin/admin_dashboard.html' %}
+
+{% block content %}
+    <h2>Inventory List</h2>
+    <a href="{% url 'add_inventory_item' %}" class="button">Add Inventory Item</a>
+    
+    <form method="get" class="filter-form">
+        {{ form.as_p }}
+        <button type="submit">Filter</button>
+        <a href="{% url 'inventory_list' %}" class="button">Reset</a>
+    </form>
+    
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Reorder Level</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>
+                        {{ item.quantity }}
+                        {% if item.quantity <= item.reorder_level %}
+                            <span class="low-stock">Low Stock</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ item.reorder_level }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>
+                        <a href="{% url 'edit_inventory_item' item.pk %}">Edit</a> |
+                        <a href="{% url 'delete_inventory_item' item.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No inventory items found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <span class="page-links">
+            {% if items.has_previous %}
+                <a href="?page=1{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">&laquo; first</a>
+                <a href="?page={{ items.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">previous</a>
+            {% endif %}
+            
+            <span class="current">
+                Page {{ items.number }} of {{ items.paginator.num_pages }}.
+            </span>
+            
+            {% if items.has_next %}
+                <a href="?page={{ items.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">next</a>
+                <a href="?page={{ items.paginator.num_pages }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <a href="{% url 'export_inventory_csv' %}" class="button">Export as CSV</a>
+{% endblock %}

@@ -1,0 +1,89 @@
+<!-- AdminHospitalApp/templates/admin/inventory_reports.html -->
+
+{% extends 'admin/admin_dashboard.html' %}
+
+{% block content %}
+    <h2>Inventory Reports</h2>
+    
+    <ul>
+        <li><strong>Total Items in Inventory:</strong> {{ total_items }}</li>
+        <li><strong>Total Inventory Value:</strong> ${{ total_inventory_value }}</li>
+    </ul>
+    
+    <h3>Items Low in Stock</h3>
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Reorder Level</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in low_stock_items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.reorder_level }}</td>
+                    <td>${{ item.price }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No items are currently low in stock.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Chart for Inventory Distribution -->
+    <h3>Inventory Distribution</h3>
+    <canvas id="inventoryChart" width="400" height="200"></canvas>
+    
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('inventoryChart').getContext('2d');
+        const inventoryChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [{% for item in low_stock_items %}'{{ item.name }}',{% endfor %}],
+                datasets: [{
+                    label: 'Low Stock Items',
+                    data: [{% for item in low_stock_items %}{{ item.quantity }},{% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Low Stock Items Distribution'
+                    }
+                }
+            }
+        });
+    </script>
+    
+    <a href="{% url 'inventory_list' %}" class="button">Back to Inventory List</a>
+{% endblock %}

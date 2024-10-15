@@ -1,7 +1,7 @@
 from django import forms
 from .models import InventoryItem, FinancialRecord
 
-# Inventory form
+
 class InventoryItemForm(forms.ModelForm):
     class Meta:
         model = InventoryItem
@@ -28,7 +28,6 @@ class InventoryFilterForm(forms.Form):
     price_min = forms.DecimalField(required=False, min_value=0, decimal_places=2, label='Minimum Price')
     price_max = forms.DecimalField(required=False, min_value=0, decimal_places=2, label='Maximum Price')
 
-# Financial form
 from django import forms
 from .models import FinancialRecord
 

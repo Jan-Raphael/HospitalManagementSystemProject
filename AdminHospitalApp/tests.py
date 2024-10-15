@@ -1,4 +1,3 @@
-# AdminHospitalApp/tests.py
 
 from django.test import TestCase
 from django.urls import reverse
@@ -8,7 +7,6 @@ from .models import InventoryItem, AdminProfile
 
 class InventoryTests(TestCase):
     def setUp(self):
-        # Create an admin user
         self.user = User.objects.create_user(username='admin', password='adminpass')
         self.admin_profile = AdminProfile.objects.create(user=self.user, is_admin=True)
         self.client.login(username='admin', password='adminpass')
@@ -67,7 +65,6 @@ class InventoryTests(TestCase):
         self.assertIn('Bandage', content)
 
 
-# AdminHospitalApp/tests.py
 
 from django.test import TestCase
 from django.urls import reverse
@@ -77,12 +74,10 @@ from .models import FinancialRecord, AdminProfile
 
 class FinancialRecordTests(TestCase):
     def setUp(self):
-        # Create an admin user
         self.user = User.objects.create_user(username='admin', password='adminpass')
         self.admin_profile = AdminProfile.objects.create(user=self.user, is_admin=True)
         self.client.login(username='admin', password='adminpass')
 
-        # Create a financial record
         FinancialRecord.objects.create(transaction_type='Income', amount=1000, description='Test Income')
 
     def test_financial_records_view(self):

@@ -1,23 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from .forms import InventoryItemForm, FinancialRecordForm
 from .models import InventoryItem, FinancialRecord
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import UserPassesTestMixin
-from django.contrib.auth.decorators import login_required, user_passes_test
-from .utils import is_admin
+from django.db.models import F, FloatField
 from .forms import InventoryFilterForm
-from django.core.paginator import Paginator
-import csv
-from django.http import HttpResponse
+from django.db.models import F, FloatField
+from .forms import InventoryFilterForm
+from .forms import InventoryItemForm, FinancialRecordForm
+from .models import InventoryItem, FinancialRecord
+
+
 # Inventory Management
 def admin_dashboard(request):
     return render(request, 'admin/admin_dashboard.html')
 
 
-# AdminHospitalApp/views.py
 
-from django.db.models import Sum, F, FloatField
-from django.shortcuts import render
 
 def inventory_reports(request):
     total_items = InventoryItem.objects.aggregate(total=Sum('quantity'))['total'] or 0
@@ -56,18 +52,11 @@ def inventory_list(request):
         if price_max is not None:
             items = items.filter(price__lte=price_max)
 
-    # Pagination
-    paginator = Paginator(items, 10)  # Show 10 items per page
+    paginator = Paginator(items, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'admin/inventory_list.html', {'items': page_obj, 'form': form})
-
-
-# AdminHospitalApp/views.py
-
-import csv
-from django.http import HttpResponse
 
 
 def export_inventory_csv(request):
@@ -94,6 +83,7 @@ def add_inventory_item(request):
         form = InventoryItemForm()
     return render(request, 'admin/add_inventory_item.html', {'form': form})
 
+
 def edit_inventory_item(request, pk):
     item = InventoryItem.objects.get(pk=pk)
     if request.method == 'POST':
@@ -111,7 +101,6 @@ def delete_inventory_item(request, pk):
     return redirect('inventory_list')
 
 
-# Financial Management
 def add_financial_record(request):
     if request.method == 'POST':
         form = FinancialRecordForm(request.POST)
@@ -178,9 +167,6 @@ def financial_reports(request):
         'net_profit': net_profit,
     }
     return render(request, 'admin/financial_reports.html', context)
-
-import csv
-from django.http import HttpResponse
 
 
 def export_financial_records_csv(request):

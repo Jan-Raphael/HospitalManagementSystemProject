@@ -55,7 +55,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">Evergreen General Hospital</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,17 +75,14 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <div class="container mt-5">
         <h2>Welcome, Dr. {{ doctor_profile.user.username }}</h2>
         
-        <!-- Doctor's Information -->
         <div class="doctor-info">
             <p><strong>Specialty:</strong> {{ doctor_profile.specialty }}</p>
             <p><strong>Contact Information:</strong> {{ doctor_profile.contact_info }}</p>
         </div>
 
-        <!-- Appointment Management Section -->
         <div class="appointment-section mt-4">
             <h3>Manage Appointments</h3>
             <p>Here you can manage your appointments, view patient records, and more.</p>
@@ -94,7 +90,6 @@
         </div>
     </div>
 
-    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

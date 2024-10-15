@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Inventory model
 class InventoryItem(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -12,7 +11,6 @@ class InventoryItem(models.Model):
     def __str__(self):
         return self.name
 
-# Financial model
 from django.db import models
 
 class FinancialRecord(models.Model):
@@ -29,7 +27,6 @@ class FinancialRecord(models.Model):
     def __str__(self):
         return f"{self.transaction_type} - {self.amount}"
 
-# User management (example)
 class AdminProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_admin = models.BooleanField(default=True)

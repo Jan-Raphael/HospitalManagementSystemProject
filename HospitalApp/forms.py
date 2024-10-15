@@ -8,7 +8,7 @@ from django.utils import timezone
 class AppointmentForm(forms.ModelForm):
     appointment_date = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-        input_formats=['%Y-%m-%dT%H:%M']  # This format matches the 'datetime-local' input
+        input_formats=['%Y-%m-%dT%H:%M']
     )
 
     class Meta:
@@ -41,7 +41,6 @@ class DoctorSignupForm(UserCreationForm):
         user = super().save(commit=False)
         if commit:
             user.save()
-            # Create and link the doctor profile to the user
             DoctorAccount.objects.create(
                 user=user,
                 specialty=self.cleaned_data['specialty'],

@@ -32,7 +32,7 @@ def signup(request):
         if user_form.is_valid():
             user = user_form.save()
             login(request, user)
-            return redirect('home')  # Change to an appropriate page
+            return redirect('home')
     else:
         user_form = UserCreationForm()
     return render(request, 'AccountView/signup.html', {'user_form': user_form})
@@ -45,13 +45,11 @@ def patient_signup(request):
             phone_number = form.cleaned_data.get('phone_number')
             address = form.cleaned_data.get('address')
 
-            # Create the patient account linked to the user
             patient_account = PatientAccount(user=user, phone_number=phone_number, address=address)
             patient_account.save()
 
-            # Log in the user after signup
             login(request, user)
-            return redirect('patient_dashboard')  # Redirect to patient dashboard or home page
+            return redirect('patient_dashboard')
     else:
         form = PatientSignupForm()
     return render(request, 'AccountView/patient_signup.html', {'form': form})
@@ -74,9 +72,8 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')  # Change to an appropriate page
+            return redirect('home')
         else:
-            # Handle invalid login
             pass
     return render(request, 'AccountView/login.html')
 
@@ -108,7 +105,7 @@ def doctor_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None and hasattr(user, 'doctoraccount'):
                 login(request, user)
-                return redirect('doctor_dashboard')  # Redirect to the doctor's dashboard
+                return redirect('doctor_dashboard')
             else:
                 form.add_error(None, 'Invalid credentials or user is not a doctor')
     else:
@@ -153,10 +150,9 @@ def verify_account(request):
     patient_account = request.user.patientaccount
 
     if request.method == 'POST':
-        # Update the verification status to True
         patient_account.verification_status = True
-        patient_account.save()  # Save the changes to the database
-        return redirect('patient_dashboard')  # Redirect to the patient dashboard after verification
+        patient_account.save()
+        return redirect('patient_dashboard')
 
     return render(request, 'PatientView/verify_account.html', {'patient_account': patient_account})
 
@@ -166,7 +162,7 @@ def upload_medical_records(request):
         medical_record_file = request.FILES.get('medical_records')
         if medical_record_file:
             patient_account = request.user.patientaccount
-            patient_account.medical_records = medical_record_file  # Update the medical_records field
-            patient_account.save()  # Save the changes to the database
-            return redirect('patient_dashboard')  # Redirect to the patient dashboard after upload
-    return redirect('patient_dashboard')  # Redirect if not POST
+            patient_account.medical_records = medical_record_file
+            patient_account.save()
+            return redirect('patient_dashboard')
+    return redirect('patient_dashboard')

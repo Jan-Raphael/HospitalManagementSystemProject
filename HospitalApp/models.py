@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 class PatientAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Add any additional fields specific to patients here
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     profile_photo = models.ImageField(upload_to='patient_photos/', blank=True, null=True)

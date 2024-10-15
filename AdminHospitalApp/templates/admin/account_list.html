@@ -1,11 +1,8 @@
-<!-- AdminHospitalApp/templates/admin/account_list.html -->
-
 {% extends 'admin/admin_dashboard.html' %}
 
 {% block content %}
     <h2>Account Management</h2>
-
-    <!-- Search and Filter Form -->
+    
     <form method="get" class="filter-form">
         <div class="row mb-3">
             <div class="col-md-4">
@@ -23,11 +20,11 @@
         </div>
     </form>
 
-    <!-- Add Account Button -->
+
     <a href="{% url 'add_account' %}" class="btn btn-success mb-3">Add New Account</a>
     <a href="{% url 'export_accounts_csv' %}" class="btn btn-info mb-3">Export as CSV</a>
 
-    <!-- Accounts Table -->
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -67,7 +64,7 @@
         </tbody>
     </table>
 
-    <!-- Pagination -->
+
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if users.has_previous %}

@@ -1,4 +1,4 @@
-<!-- AdminHospitalApp/templates/admin/add_account.html -->
+
 
 {% extends 'admin/admin_dashboard.html' %}
 
@@ -33,7 +33,6 @@
         <a href="{% url 'account_list' %}" class="btn btn-secondary">Cancel</a>
     </form>
 
-    <!-- JavaScript to Show/Hide Profile Forms Based on Role Selection -->
     <script>
         document.getElementById('id_role').addEventListener('change', function() {
             var role = this.value;

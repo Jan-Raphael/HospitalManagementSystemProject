@@ -1,24 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Account</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <h1>Verify Your Account</h1>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit Verification</button>
-</form>
-        <p>Please confirm that your information is correct before verifying your account.</p>
-        <form method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Verify Account</button>
-        </form>
-    </div>
-</body>
-</html>
+{% extends 'DoctorsAccount/patient_dashboard.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Verify Your Account</h2>
+    <p>Please review and confirm your information below before verifying your account.</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- User Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>User Information</h4>
+            </div>
+            <div class="card-body">
+                {{ user_form.as_p }}
+            </div>
+        </div>
+
+        <!-- Patient Account Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Patient Account Information</h4>
+            </div>
+            <div class="card-body">
+                {{ patient_form.as_p }}
+            </div>
+        </div>
+
+        <!-- Verification Confirmation -->
+        <div class="form-group">
+            {{ verify_form.as_p }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Verify Account</button>
+        <a href="{% url 'patient_dashboard' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<!-- Include Bootstrap JS (if not already included in base template) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXD5mSWK+hcKzgwA0rQe5DZpe1xFx1L7E2lQSD5WPOXhbxw8P1ObaADGwQjW3u0" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqk4T1WVUcl4+12M/hApbKiGGjLPG3jN6wOZgRbpN8a0J6JCRjlIq" crossorigin="anonymous"></script>
+{% endblock %}

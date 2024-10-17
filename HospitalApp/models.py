@@ -13,14 +13,23 @@ class PatientAccount(models.Model):
     def __str__(self):
         return self.user.username
 
+
+from django.db import models
+from django.contrib.auth.models import User
+
+
+# .py
 class DoctorAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     specialty = models.CharField(max_length=100)
     qualification = models.TextField(blank=True, null=True)
     years_of_experience = models.PositiveIntegerField()
     is_doctor = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=False)  # New field for approval status
+
     def __str__(self):
         return self.user.username
+
 
 class Appointment(models.Model):
     patient = models.ForeignKey(User, related_name='appointments', on_delete=models.CASCADE)

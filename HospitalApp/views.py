@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .forms import PatientSignupForm, PatientVerificationForm, DoctorSignupForm, PatientLoginForm, DoctorLoginForm, AppointmentForm
+from django.contrib import messages
+from AdminHospitalApp.forms import UserForm
+from .forms import PatientSignupForm, PatientVerificationForm, DoctorSignupForm, PatientLoginForm, DoctorLoginForm, AppointmentForm, VerifyAccountForm
 from .models import PatientAccount, DoctorAccount, Appointment
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .forms import UserForm, PatientAccountForm, VerifyAccountForm  # Ensure these are correctly imported
 
 def is_doctor(user):
     return hasattr(user, 'doctoraccount')
@@ -147,15 +153,38 @@ def doctor_view_appointments(request):
 
 @login_required
 def verify_account(request):
-    patient_account = request.user.patientaccount
+    try:
+        patient_account = request.user.patientaccount
+    except PatientAccount.DoesNotExist:
+        messages.error(request, "Patient account does not exist.")
+        return redirect('home')  # Redirect to a suitable page
 
     if request.method == 'POST':
-        patient_account.verification_status = True
-        patient_account.save()
-        return redirect('patient_dashboard')
+        user_form = UserForm(request.POST, instance=request.user)
+        patient_form = PatientAccountForm(request.POST, request.FILES, instance=patient_account)
+        verify_form = VerifyAccountForm(request.POST)
 
-    return render(request, 'PatientView/verify_account.html', {'patient_account': patient_account})
+        if user_form.is_valid() and patient_form.is_valid() and verify_form.is_valid():
+            user_form.save()
+            patient_form.save()
+            patient_account.verification_status = True
+            patient_account.save()
+            messages.success(request, "Your account has been verified successfully.")
+            return redirect('patient_dashboard')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        user_form = UserForm(instance=request.user)
+        patient_form = PatientAccountForm(instance=patient_account)
+        verify_form = VerifyAccountForm()
 
+    context = {
+        'user_form': user_form,
+        'patient_form': patient_form,
+        'verify_form': verify_form,
+        'patient_account': patient_account,
+    }
+    return render(request, 'PatientView/verify_account.html', context)
 @login_required
 def upload_medical_records(request):
     if request.method == 'POST':

@@ -58,14 +58,31 @@
         <h1>Patient Dashboard</h1>
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'doctor_logout' %}">Logout</a></li>
-                <li><a href="{% url 'schedule_appointment' %}">Book an Appointment</a></li>
-                <li><a href="{% url 'view_appointments' %}">View your Appointments</a></li>
-            </ul>
+    <li><a href="{% url 'home' %}">Home</a></li>
+    
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'doctor_logout' %}">Logout</a></li>
+        
+        {% if user.patientaccount.verification_status %}
+            <!-- Links visible to verified users -->
+            <li><a href="{% url 'schedule_appointment' %}">Book an Appointment</a></li>
+            <li><a href="{% url 'view_appointments' %}">View your Appointments</a></li>
+        {% else %}
+            <!-- Redirect unverified users to verify account -->
+            <li><a href="{% url 'verify_account' %}">Verify Your Account to Book an Appointment</a></li>
+            <li><a href="{% url 'verify_account' %}">Verify Your Account to View Appointments</a></li>
+        {% endif %}
+        
+    {% else %}
+        <!-- Links for users who are not logged in -->
+        <li><a href="{% url 'login' %}">Login to Book an Appointment</a></li>
+        <li><a href="{% url 'login' %}">Login to View Appointments</a></li>
+        <li><a href="{% url 'register' %}">Register</a></li>
+    {% endif %}
+</ul>
+
         </nav>
     </header>
-
     <main>
         <h2>Welcome, {{ user.username }}</h2>
         <p><strong>Verification Status:</strong> 
@@ -75,7 +92,13 @@
                 <span class="text-danger">Not Verified</span>
             {% endif %}
         </p>
-
+        <section>
+    
+        {% block content %}
+    
+    {% endblock %}
+    
+</section>
         {% if not user.patientaccount.verification_status %}
             <a href="{% url 'verify_account' %}" class="btn btn-warning">Verify Your Account</a>
         {% else %}
@@ -97,17 +120,8 @@
             {% else %}
                 <p>No medical records photo uploaded.</p>
             {% endif %}
-
-            <h4>Upload Medical Records</h4>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="medical_records">Select Medical Records:</label>
-                    <input type="file" name="medical_records" id="medical_records" class="form-control-file" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Upload Medical Records</button>
-            </form>
         {% endif %}
+    
     </main>
 
     <footer>

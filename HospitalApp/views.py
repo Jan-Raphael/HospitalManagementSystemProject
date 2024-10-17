@@ -1,19 +1,20 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib import messages
-from AdminHospitalApp.forms import UserForm
-from .forms import PatientSignupForm, PatientVerificationForm, DoctorSignupForm, PatientLoginForm, DoctorLoginForm, AppointmentForm, VerifyAccountForm
-from .models import PatientAccount, DoctorAccount, Appointment
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import get_user_model, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.shortcuts import render, redirect
-from .forms import UserForm, PatientAccountForm, VerifyAccountForm  # Ensure these are correctly imported
+from django.contrib import messages
+from HospitalApp.models import PatientAccount
+from .forms import DoctorLoginForm, DoctorSignupForm
+from .forms import PatientSignupForm, AppointmentForm
+from .forms import UserForm, PatientAccountForm, VerifyAccountForm
+from .models import Appointment
+from .models import DoctorAccount
+
 
 def is_doctor(user):
-    return hasattr(user, 'doctoraccount')
+    return hasattr(user, 'doctoraccount') and user.doctoraccount.is_doctor
 
 def is_patient(user):
     return hasattr(user, 'patientaccount')
@@ -22,7 +23,10 @@ def is_patient(user):
 @user_passes_test(is_doctor)
 def doctor_dashboard(request):
     doctor_profile = DoctorAccount.objects.get(user=request.user)
+    if not doctor_profile.is_approved:
+        return redirect('waiting_for_approval')
     return render(request, 'DoctorsAccount/doctor_dashboard.html', {'doctor_profile': doctor_profile})
+
 
 @login_required
 @user_passes_test(is_patient)
@@ -60,13 +64,24 @@ def patient_signup(request):
         form = PatientSignupForm()
     return render(request, 'AccountView/patient_signup.html', {'form': form})
 
+# views.py
 def doctor_signup(request):
     if request.method == 'POST':
         form = DoctorSignupForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('doctor_dashboard')  # Redirect to the doctor's dashboard
+            user = form.save(commit=False)
+            user.is_active = False  # Set user to inactive until approved
+            user.save()
+            DoctorAccount.objects.create(
+                user=user,
+                specialty=form.cleaned_data['specialty'],
+                qualification=form.cleaned_data['qualification'],
+                years_of_experience=form.cleaned_data['years_of_experience'],
+                is_doctor=True,
+                is_approved=False  # Set to false initially
+            )
+            # Optionally send an email notification to admin for approval
+            return render(request, 'DoctorsAccount/waiting_for_approval.html')  # Redirect to waiting page
     else:
         form = DoctorSignupForm()
     return render(request, 'AccountView/doctor_signup.html', {'form': form})
@@ -104,18 +119,23 @@ def patient_login(request):
     return render(request, 'AccountView/patient_login.html', {'form': form})
 def doctor_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = DoctorLoginForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None and hasattr(user, 'doctoraccount'):
-                login(request, user)
-                return redirect('doctor_dashboard')
+                if user.doctoraccount.is_approved:
+                    login(request, user)
+                    return redirect('doctor_dashboard')
+                else:
+                    login(request, user)
+                    messages.warning(request, "Your account is pending approval. Please wait for admin approval.")
+                    return redirect('waiting_for_approval')
             else:
                 form.add_error(None, 'Invalid credentials or user is not a doctor')
     else:
-        form = AuthenticationForm()
+        form = DoctorLoginForm()
     return render(request, 'AccountView/doctor_login.html', {'form': form})
 
 
@@ -147,10 +167,11 @@ def view_appointments(request):
 @login_required
 @user_passes_test(is_doctor)
 def doctor_view_appointments(request):
-    doctor = DoctorAccount.objects.get(user=request.user)
-    appointments = Appointment.objects.filter(doctor=doctor).order_by('-appointment_date')
+    doctor_profile = DoctorAccount.objects.get(user=request.user)
+    if not doctor_profile.is_approved:
+        return redirect('waiting_for_approval')
+    appointments = Appointment.objects.filter(doctor=doctor_profile).order_by('-appointment_date')
     return render(request, 'DoctorsAccount/doctor_view_appointments.html', {'appointments': appointments})
-
 @login_required
 def verify_account(request):
     try:
@@ -195,3 +216,12 @@ def upload_medical_records(request):
             patient_account.save()
             return redirect('patient_dashboard')
     return redirect('patient_dashboard')
+
+@login_required
+@user_passes_test(is_doctor)
+def waiting_for_approval(request):
+    doctor_profile = DoctorAccount.objects.get(user=request.user)
+    context = {
+        'doctor_profile': doctor_profile,
+    }
+    return render(request, 'DoctorsAccount/waiting_for_approval.html', context)

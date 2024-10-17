@@ -33,3 +33,14 @@ class AdminProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Account(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_approved = models.BooleanField(default=False)  # Approval status
+    # Other fields as necessary
+
+    def __str__(self):
+        return self.user.username

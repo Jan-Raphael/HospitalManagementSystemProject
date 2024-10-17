@@ -5,32 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3437d03-51a6-494b-a853-871fd93e194a" name="Changes" comment="Commit">
+      <change afterPath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/waiting_for_approval.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AdminHospitalApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/account_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/account_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/add_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/add_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/add_financial_record.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/add_financial_record.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/add_inventory_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/add_inventory_item.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/admin_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/admin_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/delete_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/delete_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/delete_financial_record.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/delete_financial_record.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/edit_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/edit_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/edit_financial_record.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/edit_financial_record.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/financial_reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/financial_reports.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/inventory_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/inventory_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/inventory_reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/inventory_reports.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/view_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/templates/admin/view_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminHospitalApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdminHospitalApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HospitalApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/doctor_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/doctor_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/doctor_view_appointments.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/doctor_view_appointments.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/PatientView/schedule_appointment.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/PatientView/schedule_appointment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/patient_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/DoctorsAccount/patient_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/PatientView/verify_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/PatientView/verify_account.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/templates/PatientView/view_appointments.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/PatientView/view_appointments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HospitalApp/templates/UserView/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/templates/UserView/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HospitalApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HospitalApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/HospitalApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +139,8 @@
       <workItem from="1728647823408" duration="4360000" />
       <workItem from="1728711845120" duration="3625000" />
       <workItem from="1728994951684" duration="2482000" />
-      <workItem from="1729032954803" duration="1509000" />
+      <workItem from="1729032954803" duration="2364000" />
+      <workItem from="1729085839255" duration="5496000" />
     </task>
     <task id="LOCAL-00001" summary="Commit">
       <option name="closed" value="true" />
@@ -169,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729033060250</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Commit">
+      <option name="closed" value="true" />
+      <created>1729034978729</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729034978729</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
